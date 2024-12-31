@@ -1,0 +1,74 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Receipt{
+    id
+    Date
+}
+
+class Customer{
+    id
+    name
+    membershipStatus
+    email
+    interactionNum
+}
+
+class Admin{
+    name
+    password
+}
+
+class Employee{
+    name
+    password
+    joinDate
+    transactionsCount
+}
+
+class Sale{
+    id
+    total
+    discount
+    date
+}
+
+class Coupon{
+    id
+    discount
+    issueDate
+    expiryDate
+}
+
+class Product{
+    Item_Name
+    Price
+    Stock
+    Bar_code
+}
+
+class Catalog
+{
+    CatalogId
+    ProductsNum
+}
+
+class CashierDevice
+{
+    DeviceId
+    AmountStored
+    MaintenanceDate
+    Status
+}
+
+Catalog "1"--"*" Product
+CashierDevice "1"--"1" Employee
+Sale "1"--"*" Product
+Admin "1"--"*" Customer
+Coupon "*"--"1" Customer
+Coupon "1"-- "1" Receipt
+Admin "1"-- "*" Employee
+Receipt "1"-- "1" Sale
+Receipt "*"--"1" CashierDevice
+
+@enduml
