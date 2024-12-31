@@ -1,0 +1,72 @@
+@startuml
+
+entity Admin {
+  + id: int
+  + name: string
+  + password: string
+}
+
+entity Customer {
+  + id: int
+  + name: string
+  + membershipStatus: string
+  + email: string
+  + interactionNum: int
+}
+
+entity Employee {
+  + id: int
+  + name: string
+  + password: string
+  + joinDate: date
+  + transactionsCount: int
+}
+
+entity CashierDevice {
+  + DeviceId: int
+  + AmountStored: decimal
+  + MaintenanceDate: date
+  + Status: string
+}
+
+entity Catalogue {
+  + CatalogueId: int
+  + ProductsNum: int
+}
+
+entity Product {
+  + Item_Name: string
+  + Price: decimal
+  + Stock: int
+  + Bar_code: string
+}
+
+entity Sale {
+  + id: int
+  + total: decimal
+  + discount: decimal
+  + date: date
+}
+
+entity Receipt {
+  + id: int
+  + Date: date
+}
+
+entity Coupon {
+  + id: int
+  + discount: decimal
+  + issueDate: date
+  + expiryDate: date
+}
+
+Admin "1" -- "N" Employee : manages
+Customer "1" -- "N" Receipt : has
+Customer "1" -- "N" Coupon : has
+Employee "1" -- "N" CashierDevice : operates
+CashierDevice "1" -- "N" Sale : processes
+Sale "1" -- "N" Product : includes
+Sale "1" -- "1" Receipt : generates
+Catalogue "1" -- "N" Product : contains
+
+@enduml
