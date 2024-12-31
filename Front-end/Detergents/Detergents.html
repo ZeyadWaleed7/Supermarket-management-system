@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Sale</title>
+    <link rel="stylesheet" href="Detergents.css">
+</head>
+<body>
+    <nav class="navbar">
+        <img src="../images/logo.png" alt="App Logo" class="logo">
+        <ul class="nav-links">
+            <li><a href="../adminpage/adminpage.html">Home</a></li>
+            <li><a href="../Detergents/Detergents.html">Detergents</a></li>
+            <li><a href="../Grocery/Grocery.html">Grocery</a></li>
+            <li><a href="../Medicine/Medicine.html">Medicines</a></li>
+        </ul>
+    </nav>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Enter barcode or product name..." onkeyup="searchProducts()">
+        <div>
+            <button class="add-product-btn" onclick="openAddModal()"><i class="fas fa-plus"></i> Add Product</button>
+            <div id="addProductModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeAddModal()">&times;</span>
+                    <h2>Add New Product</h2>
+                    <form id="addProductForm" onsubmit="addProduct(event)">
+                        <input type="text" id="newProductName" placeholder="Product Name" required>
+                        <input type="text" id="newProductId" placeholder="Product ID" required>
+                        <button type="submit" class="submit-btn">Add Product</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="sort-dropdown">
+                <div class="sort-dropdown">
+                    <button class="sort-product-btn" onclick="toggleDropdown()">
+                        <i class="fas fa-sort"></i> Sort Products
+                    </button>
+                    <div class="dropdown-content" id="sortDropdown">
+                        <a href="#" onclick="sortProducts('name')">Sort by Name</a>
+                        <a href="#" onclick="sortProducts('id')">Sort by ID</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="remove-product-btn" onclick="openRemoveModal()">Remove Product</button>
+            <div id="removeProductModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeRemoveModal()">&times;</span>
+                    <h2>Remove Product</h2>
+                    <form id="removeProductForm" onsubmit="removeProduct(event)">
+                        <label for="removeProductInput">Enter Product ID:</label>
+                        <input type="text" id="removeProductId" required>
+                        <button type="submit" class="submit-btn">Remove Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="products-container" class="products-grid"></div>
+
+    <script>
+        const products = [
+            { id: '001', name: 'Tide', image: '../images/tide.png', stock: 20 },
+            { id: '002', name: 'Persil', image: '../images/persil.png', stock: 15 },
+        ];
+        function createProductCards() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            products.forEach(product => {
+                container.innerHTML += `
+                    <div class="product-card" data-id="${product.id}">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <p class="product-name">${product.name}</p>
+                            <p class="product-id">ID: ${product.id}</p>
+                            <p class="product-stock">Stock: <span id="stock-${product.id}">${product.stock}</span></p>
+                            <div class="quantity-controls">
+                                <button class="qunbtn" onclick="decreaseQuantity('stock-${product.id}')">-</button>
+                                <button class="qunbtn" onclick="increaseQuantity('stock-${product.id}')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openAddModal() {
+            document.getElementById('addProductModal').style.display = 'block';
+        }
+
+        function closeAddModal() {
+            document.getElementById('addProductModal').style.display = 'none';
+        }
+
+        function openRemoveModal() {
+            document.getElementById('removeProductModal').style.display = 'block';
+        }
+
+        function closeRemoveModal() {
+            document.getElementById('removeProductModal').style.display = 'none';
+        }
+
+        function addProduct(event) {
+            event.preventDefault();
+            const name = document.getElementById('newProductName').value;
+            const id = document.getElementById('newProductId').value;
+
+            const container = document.getElementById('products-container');
+            container.innerHTML += `
+                <div class="product-card" data-id="${id}">
+                    <img src="../images/default.png" alt="${name}" class="product-image">
+                    <div class="product-info">
+                        <p class="product-name">${name}</p>
+                        <p class="product-id">ID: ${id}</p>
+                        <p class="product-stock">Stock: <span id="stock-${id}">0</span></p>
+                        <div class="quantity-controls">
+                            <button class="qunbtn" onclick="decreaseQuantity('stock-${id}')">-</button>
+                            <button class="qunbtn" onclick="increaseQuantity('stock-${id}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            closeAddModal();
+        }
+        
+        function sortProducts(criteria) {
+            const container = document.getElementById('products-container');
+            const productCards = Array.from(container.children);
+            
+            productCards.sort((a, b) => {
+                if (criteria === 'name') {
+                    const nameA = a.querySelector('.product-name').textContent.toLowerCase();
+                    const nameB = b.querySelector('.product-name').textContent.toLowerCase();
+                    return nameA.localeCompare(nameB);
+                } else if (criteria === 'id') {
+                    const idA = a.querySelector('.product-id').textContent.split(': ')[1];
+                    const idB = b.querySelector('.product-id').textContent.split(': ')[1];
+                    return idA.localeCompare(idB);
+                }
+            });
+            
+            container.innerHTML = '';
+            productCards.forEach(card => {
+                container.appendChild(card);
+            });
+            
+            document.getElementById("sortDropdown").classList.remove("show");
+        }
+
+        function searchProducts() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const container = document.getElementById('products-container');
+            const productCards = container.getElementsByClassName('product-card');
+
+            Array.from(productCards).forEach(card => {
+                const name = card.querySelector('.product-name').textContent.toLowerCase();
+                const id = card.querySelector('.product-id').textContent.toLowerCase();
+                
+                if (name.includes(searchInput) || id.includes(searchInput)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function removeProduct(event) {
+            event.preventDefault();
+            const idToRemove = document.getElementById('removeProductId').value;
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                if (card.dataset.id === idToRemove) {
+                    card.remove();
+                }
+            });
+            closeRemoveModal();
+        }
+
+        function increaseQuantity(stockId) {
+            const stockElement = document.getElementById(stockId);
+            stockElement.textContent = parseInt(stockElement.textContent) + 1;
+        }
+
+        function decreaseQuantity(stockId) {
+            const stockElement = document.getElementById(stockId);
+            const currentStock = parseInt(stockElement.textContent);
+            if (currentStock > 0) {
+                stockElement.textContent = currentStock - 1;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', createProductCards);
+    </script>
+    <footer class="footer">
+        <p>&copy; 2024 Zalabat Mart. All rights reserved.</p>
+    </footer>
+</body>
+</html>

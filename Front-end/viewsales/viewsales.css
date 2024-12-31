@@ -1,0 +1,82 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #FF5900;
+    display: flex;
+    padding: 20px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.navbar .logo {
+    height: 25px;
+    width: auto;
+}
+
+.sales-title{
+    text-align: left;
+    font-size: 40px;
+    font-weight: 800;
+    color:#FF5900;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.sales-container {
+    width: 90%;
+    min-height: 700px;
+    background: white;
+    padding: 20px;
+    margin-top: 90px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sales-table th,
+.sales-table td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.sales-table th {
+    background-color: #FF5900;
+    color: white;
+    font-weight: 600;
+}
+
+.sales-table tbody tr:hover {
+    background-color: #e6e6e6;
+}
+
+.footer {
+    width: 100%;
+    color: #959CB6;
+    text-align: center;
+    padding: 20px 0;
+    bottom: 0;
+    left: 0;
+    background-color: #f7f7f7;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
