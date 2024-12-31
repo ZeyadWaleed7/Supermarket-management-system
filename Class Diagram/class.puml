@@ -1,0 +1,134 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class Receipt{
+    id
+    Date
+}
+
+interface accountHandling{
+    +Authorize() <<abstract>>
+}
+
+
+abstract User{
+    #name: str
+    #password: str
+    #email: str
+
+    +signIn()
+}
+
+class Customer{
+    -id: int
+    -name: str
+    -membershipStatus: str
+    -email: str
+    -interactionNum: int
+
+    +requestMembership()
+    +verifyEmail()
+}
+
+class Admin{
+    +addEmployee()
+}
+
+class Employee{
+    -joinDate: int
+    -transactionsCount: int
+
+    +signup()
+    +login()
+    +initiateSale()
+    +initiateMemberShip()
+}
+
+abstract Sale{
+    -id: str
+    -total: double
+    -discount: double
+    -date: str
+
+    +calculateDiscount() <<abstract>>
+    +viewSaleDetails() <<abstract>>
+    +recordInvoice() <<abstract>>
+}
+class normalSale{}
+
+class wholeSale{}
+
+
+abstract Expirable
+{
+    -issueDate: str
+    -expiryDate: str
+    -isExpired()
+    +checkExpiry() <<abstract>>
+}
+
+
+class Product{
+    -Item_Name
+    -Price
+    -Stock
+    -barCode
+    -Type
+
+}
+
+interface listOperations{
+    +add()
+    +remove()
+    +Sort()
+    +Search()
+    +displayInfo()
+}
+
+class Catalogue
+{
+    -CatalogueId: str
+    -ProductsNum: int
+
+}
+
+
+'class deviceChecker()
+'{
+'    currentTime()
+'    checkDevices()
+'
+'}
+
+
+class Register
+{
+    moneyStored: double
+    +addMoney()
+    +subMoney()
+    +showRecieptHistory()
+}
+
+
+
+
+
+Catalogue "1"--"*" Product
+Register "1"--"1" Employee
+Sale "1"--"1" Catalogue
+Sale "1"<|--"*" normalSale : implemented by
+Sale "1"<|--"*" wholeSale : implemented by
+Admin "1"--"*" Customer
+Admin "1"-- "*" Employee
+Receipt "1"<-- "1" Sale
+Receipt "*"<--"1" Register :Contains
+Expirable "1"<--"*" Product : can be
+listOperations "1"<|--"*" Catalogue : can be
+accountHandling "1"<|--"*" gmailHandler :  implements
+gmailHandler "1"<|--"1" User: is a
+User "1"<--"1" Admin: is a
+User "1"<--"1" Employee: is a
+
+
+@enduml
