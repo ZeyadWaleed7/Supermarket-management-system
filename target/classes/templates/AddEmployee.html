@@ -1,0 +1,38 @@
+<!DOCTYPE >
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <link rel="stylesheet" th:href="@{/css/addemployee.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <img th:src="@{/images/logo.png}" alt="App Logo" class="logo">
+    </nav>
+    <div class="form-container">
+        <form th:action="@{/Employee/Add}" method="post" th:object="${EmployeeDTO}" class="employee-form">
+            <h2>Add Employee</h2>
+
+            <label for="name">Employee Name</label>
+            <input type="text" id="name"  name="name" th:field="*{name}" placeholder="Enter employee name" required>
+
+            <label for="email">Employee email</label>
+            <input type="text" id="email" name="email" th:field="*{email}" placeholder="Enter employee title" required>
+
+
+            <label for="password">Employee password</label>
+            <input type="text" id="password" name="password" th:field="*{password}" placeholder="Enter employee title" required>
+
+            <label for="start-date">Start Date</label>
+            <input type="date" id="start-date" name="start-date" th:field="*{joinDate}" required>
+
+            <button type="submit" class="submit-btn">Add Employee</button>
+        </form>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Zalabat Mart. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Sale</title>
+    <link rel="stylesheet" href="Medicine.css">
+    <script>
+        function increaseQuantity(stockId) {
+            const stockElement = document.getElementById(stockId);
+            const currentStock = parseInt(stockElement.textContent);
+            stockElement.textContent = currentStock + 1;
+        }
+
+        function decreaseQuantity(stockId) {
+            const stockElement = document.getElementById(stockId);
+            const currentStock = parseInt(stockElement.textContent);
+            if (currentStock > 0) {
+                stockElement.textContent = currentStock - 1;
+            }
+        }
+    </script>    
+</head>
+<body>
+    <nav class="navbar">
+        <img src="../images/logo.png" alt="App Logo" class="logo">
+        <ul class="nav-links">
+            <li><a href="../../templates/HomePage.html">Home</a></li>
+            <li><a href="../Detergents/Detergents.html">Detergents</a></li>
+            <li><a href="../Grocery/Grocery.html">Grocery</a></li>
+            <li><a href="ml">Medicines</a></li>
+        </ul>
+    </nav>
+    <div id="products-container" class="products-grid"></div>
+
+    <script>
+        const products = [
+            {
+                id: '001',
+                name: 'Product 1',
+                image: '../images/Cold-n-Flu-Day.avif',
+                stock: 20
+            },
+            {
+                id: '002',
+                name: 'Product 2',
+                image: '../images/Cold-n-Flu-Day.avif',
+                stock: 15
+            },
+            {
+                id: '001',
+                name: 'Product 1',
+                image: '../images/Cold-n-Flu-Day.avif',
+                stock: 20
+            },
+            {
+                id: '002',
+                name: 'Product 2',
+                image: '../images/Cold-n-Flu-Day.avif',
+                stock: 15
+            },
+            {
+                id: '001',
+                name: 'Product 1',
+                image: '../images/Cold-n-Flu-Day.avif',
+                stock: 20
+            }
+        ];
+
+        function createProductCards() {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            
+            products.forEach(product => {
+                container.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <p class="product-name">${product.name}</p>
+                            <p class="product-id">ID: ${product.id}</p>
+                            <p class="product-stock">Stock: <span id="stock-${product.id}">${product.stock}</span></p>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity('stock-${product.id}')">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function decreaseQuantity(stockId) {
+            const stockElement = document.getElementById(stockId);
+            let currentStock = parseInt(stockElement.textContent);
+            if (currentStock > 0) {
+                stockElement.textContent = currentStock - 1;
+            }
+        }
+
+        function increaseQuantity(stockId) {
+            const stockElement = document.getElementById(stockId);
+            let currentStock = parseInt(stockElement.textContent);
+            stockElement.textContent = currentStock + 1;
+        }
+        document.addEventListener('DOMContentLoaded', createProductCards);
+    </script>
+
+    <footer class="footer">
+        <p>&copy; 2024 Zalabat Mart. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,99 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 65px;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #FF5900;
+    display: flex;
+    padding: 20px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.navbar .logo {
+    height: 25px;
+    width: auto;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.employee-form {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.employee-form h2 {
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+}
+
+.employee-form label {
+    font-size: 14px;
+    color: #555;
+}
+
+.employee-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.submit-btn {
+    padding: 10px;
+    background-color: #FF5900;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #e64e00;
+}
+
+.footer {
+    width: 100%;
+    color: #959CB6;
+    text-align: center;
+    padding: 20px 0;
+   
+    bottom: 0;
+    left: 0;
+    background-color: #f7f7f7;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}

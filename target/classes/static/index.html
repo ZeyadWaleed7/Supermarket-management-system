@@ -1,0 +1,45 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style.css">
+
+<!--    <script>-->
+<!--        document.addEventListener('DOMContentLoaded', function() {-->
+<!--            const loginForm = document.querySelector('.login-form');-->
+
+<!--            loginForm.addEventListener('submit', function(e) {-->
+<!--                e.preventDefault();-->
+<!--                window.location.href = "HomePage.html";-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="images/logo.png" alt="App Logo" class="logo">
+    </nav>
+
+    <!-- Login Section -->
+    <div class="login-container">
+        <form action="/User" method="post" th:object="${UserDTO}" class="login-form">
+            <p class = "login-title">Welcome Back 👋</p>
+            <p class = "login-text">Today is a new day. It's your day. You shape it.
+                login to start managing your projects.</p>
+            <input type="text" id="email" name="email" th:field="*{name}" placeholder="Enter your Email" required>
+            <input type="text" id="password" name="password" th:field="*{password}" placeholder="Enter your password" required>
+
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p th:text="${error}"></p>
+        <img src="images/food.png" alt="Food Image" class="food-image">
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Zalabat Mart. All rights reserved.</p>
+    </footer>
+</body>
+</html>
