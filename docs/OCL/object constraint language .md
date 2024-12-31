@@ -1,25 +1,23 @@
 ### Customer Constraints
 ```
 context Customer
-inv: self.email->matches('(?i)^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
 inv: self.interactionNum >= 0
+inv: self.Id->isUnique()
 ```
 
 ### Admin Constraints
 ```
 context Admin
--- No constraints needed as the size of a collection is always non-negative by definition.
+inv: self.email->matches('(?i)^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
+inv: self.email->isUnique()
+
 ```
 
-
-### Coupon Constraints
+### Employee Constraints
 ```
-context Coupon
-inv: self.id->isUnique()
-inv: self.issueDate.isDefined() and self.expiryDate.isDefined()
-inv: self.expiryDate > self.issueDate
-inv: self.customer->size() = 1
-inv: self.receipt->size() = 1
+context Employee
+inv: self.email->matches('(?i)^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')
+inv: self.email->isUnique()
 ```
 
 ### Product Constraints
