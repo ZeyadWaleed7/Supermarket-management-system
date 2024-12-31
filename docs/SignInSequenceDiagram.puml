@@ -1,0 +1,34 @@
+@startuml
+actor User
+participant UserController
+participant UserService
+participant UserFactory
+participant Model
+
+User -> UserController: POST (SignIn request)
+activate UserController
+
+UserController -> UserService: getUserByEmail(userDto.getEmail())
+activate UserService
+UserService -> UserService: find user by email
+UserService --> UserController: User
+deactivate UserService
+
+alt user == null
+    UserController -> Model: addAttribute("error", "User Not Found")
+    UserController -> User: redirect:/
+else user != null
+    UserController -> User: checkPassword(userDto.getPassword())
+    alt password correct
+        UserController -> UserFactory: createUser(user.getName(), user.getEmail(), user.getPassword(), user.getType())
+        activate UserFactory
+        UserFactory --> UserController: User
+        deactivate UserFactory
+
+        UserController -> Model: addAttribute("user", send)
+        UserController -> User: HomePage
+    end
+end
+
+deactivate UserController
+@enduml
